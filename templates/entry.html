@@ -78,7 +78,7 @@
 	{% if entry.formula %}
 	<div class="formula">
 		<h3>Formula</h3>
-		{{entry.formula}}
+		{{entry.formula|multiline|addlinks}}
 	</div>
 	{% endif %}
 	{% if entry.extensions %}
