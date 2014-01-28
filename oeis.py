@@ -1,0 +1,85 @@
+import re
+import operator
+import itertools
+import urllib.request
+
+re_entry_line = re.compile('%(?P<linetype>\w) (?P<index>A\d{6}) (?P<content>.*)$')
+class Entry:
+	index = ''
+	other_indices = []
+	name = ''
+	author = ''
+	offset = 0
+	first_non_one_term = 0
+	references = []
+	links = []
+	cross_references = ''
+	formula = ''
+	extensions = ''
+	examples = ''
+	comments = ''
+	keywords = []
+
+	programs = {}
+
+	terms_lines = ['','','']
+	
+	@property
+	def terms(self):
+		return ''.join(self.terms_lines)
+	
+	def __init__(self,str):
+		lines = str.split('\n')
+		def get_matches():
+			for line in lines:
+				try:
+					yield re_entry_line.match(line).groupdict()
+				except AttributeError:
+					pass
+		matches = list(get_matches())
+
+		get_linetype = operator.itemgetter('linetype')
+		fields = {key:'\n'.join(match['content'] for match in value) for key,value in itertools.groupby(matches,get_linetype)}
+
+		get = lambda key: fields.get(key,'')
+
+		self.index = matches[0]['index']
+		other_indices = get('I')
+		if other_indices:
+			self.other_indices = other_indices.split(' ')
+
+		self.name = get('N')
+		self.author = get('A')
+
+		offset = re.match('(\d+),(\d+)',get('O'))
+		self.offset = int(offset.group(1))
+		self.first_non_one_term = int(offset.group(2))
+
+		self.terms_lines = [fields.get('V',get('S')),fields.get('W',get('T')),fields.get('X',get('U'))]
+
+		if 'D' in fields:
+			self.references = fields.get('D').split('\n')
+		if 'H' in fields:
+			self.links = get('H').split('\n')
+
+		self.formula = get('F')
+		self.cross_references = get('Y')
+		self.extensions = get('E')
+		self.examples = get('e')
+		self.comments = get('C')
+
+		if 'K' in fields:
+			self.keywords = get('K').split(',')
+
+		if 'p' in fields:
+			self.programs['Maple'] = fields.get('p')
+		if 't' in fields:
+			self.programs['Mathematica'] = fields.get('p')
+		if 'o' in fields:
+			self.programs['other'] = get('o')
+
+def get_entry(index):
+	request = urllib.request.urlopen('http://oeis.org/search?q=id:%s&fmt=text' % index).read().decode()
+	a_file = request.split('\n\n')[2]
+	return Entry(a_file)
+
