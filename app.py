@@ -2,18 +2,36 @@ from flask import Flask, redirect, render_template, url_for, Markup
 import oeis
 import urllib.request
 import re
+from jinja2 import escape
+
+cache = {}
+def get_url(url):
+	if url in cache:
+		return cache[url]
+	else:
+		request = urllib.request.urlopen(url).read().decode()
+		cache[url] = request
+		print('got %s' % url)
+		return request
 
 app = Flask(__name__)
 
 @app.template_filter('multiline')
 def multiline_filter(s):
-	lines = s.split('\n')
-	return '\n'.join('<div class="line">%s</div>' % line for line in lines)
+	lines = str(s).split('\n')
+	return Markup('\n'.join('<div class="line">%s</div>' % line for line in lines))
 
 @app.template_filter('addlinks')
 def addlinks_filter(s):
+	s = str(escape(s))
+	bits = re_not_maths.split(s)
+	for i in range(2,len(bits),2):
+		if bits[i]:
+			bits[i] = '<span class="maths">%s</span>' % bits[i]
+	s = ''.join(bits)
 	s = re.sub('(^|[\\W])_(.*?)_([\\W]|$)',link_to_author,s)
 	s = re.sub('(A\\d{6})',link_to_sequence,s)
+
 	return Markup(s)
 
 def link_to_author(match):
@@ -27,7 +45,7 @@ def link_to_sequence(match):
 
 @app.route('/entry/<index>')
 def show_entry(index):
-	request = urllib.request.urlopen('http://oeis.org/search?q=id:%s&fmt=text' % index).read().decode()
+	request = get_url('http://oeis.org/search?q=id:%s&fmt=text' % index)
 	a_file = request.split('\n\n')[2]
 
 	entry = oeis.Entry(a_file)
@@ -36,7 +54,7 @@ def show_entry(index):
 
 @app.route('/search/<query>')
 def search(query):
-	request = urllib.request.urlopen('http://oeis.org/search?q=%s&fmt=text' % query).read().decode()
+	request = get_url('http://oeis.org/search?q=%s&fmt=text' % query)
 	a_files = request.split('\n\n')[2:-1]
 	entries = [oeis.Entry(a_file) for a_file in a_files]
 
@@ -50,6 +68,10 @@ def show_user(username):
 @app.route('/keyword/<keyword>')
 def show_keyword(keyword):
 	return redirect('http://oeis.org/search?q=keyword:%s' % keyword)
+
+# An attempt to split out maths notation.
+# Would be good if I could think of a way of converting pseudo-TeX to real TeX
+re_not_maths = re.compile('((?:^|\s+)(?:(?:[()\[\]][a-zA-Z.,:\'\"]+|[a-zA-Z\'\".,;:]+[)\]]*|A\d{6}|(?<=[a-zA-Z])--?(?=[a-zA-Z])|\d{2}\s\d{4}|_[a-zA-Z\s.-]+_)+(?:$|\s+|[()\[\]])+)+)',re.MULTILINE)
 
 if __name__ == '__main__':
 	app.debug = True

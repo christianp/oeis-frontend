@@ -26,7 +26,8 @@ class Entry:
 	
 	@property
 	def terms(self):
-		return ''.join(self.terms_lines)
+		all_terms = ''.join(self.terms_lines)
+		return [int(x) for x in all_terms.split(',')]
 	
 	def __init__(self,str):
 		lines = str.split('\n')
