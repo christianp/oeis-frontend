@@ -76,7 +76,7 @@ class Entry:
 		if 'p' in fields:
 			self.programs.append(('Maple',fields.get('p')))
 		if 't' in fields:
-			self.programs.append(('Mathematica',fields.get('p')))
+			self.programs.append(('Mathematica',fields.get('t')))
 		if 'o' in fields:
 			others = get('o')
 			programs = re.split('^\((\w+)\)\s*',others,0,re.MULTILINE)[1:]

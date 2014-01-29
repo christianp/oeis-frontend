@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for, Markup
+from flask import Flask, redirect, render_template, url_for, Markup, request
 import oeis
 import urllib.request
 import re
@@ -9,10 +9,10 @@ def get_url(url):
 	if url in cache:
 		return cache[url]
 	else:
-		request = urllib.request.urlopen(url).read().decode()
-		cache[url] = request
+		data = urllib.request.urlopen(url).read().decode()
+		cache[url] = data
 		print('got %s' % url)
-		return request
+		return data
 
 app = Flask(__name__)
 
@@ -48,20 +48,24 @@ def link_to_sequence(match):
 
 @app.route('/entry/<index>')
 def show_entry(index):
-	request = get_url('http://oeis.org/search?q=id:%s&fmt=text' % index)
-	a_file = request.split('\n\n')[2]
+	data = get_url('http://oeis.org/search?q=id:%s&fmt=text' % index)
+	a_file = data.split('\n\n')[2]
 
 	entry = oeis.Entry(a_file)
 
 	return render_template('entry.html',entry=entry)
 
-@app.route('/search/<query>')
-def search(query):
-	request = get_url('http://oeis.org/search?q=%s&fmt=text' % query)
-	a_files = request.split('\n\n')[2:-1]
+@app.route('/search/')
+def search():
+	query = request.args.get('q')
+	start = int(request.args.get('start',0))
+	data = get_url('http://oeis.org/search?q=%s&start=%i&fmt=text' % (query,start))
+	sections = data.split('\n\n')
+	total = int(re.search('Showing \d+-\d+ of (?P<total>\d+)',sections[1]).group('total'))
+	a_files = data.split('\n\n')[2:-1]
 	entries = [oeis.Entry(a_file) for a_file in a_files]
 
-	return render_template('search_results.html',entries=entries)
+	return render_template('search_results.html',entries=entries,start=start,query=query,total=total)
 
 @app.route('/user/<username>')
 def show_user(username):
@@ -74,7 +78,7 @@ def show_keyword(keyword):
 
 # An attempt to split out maths notation.
 # Would be good if I could think of a way of converting pseudo-TeX to real TeX
-re_not_maths = re.compile('((?:^|\s+)(?:(?:[()\[\]][a-zA-Z.,:\'\"]+|[a-zA-Z\'\".,;:]+[)\]]*|A\d{6}|(?<=[a-zA-Z])--?(?=[a-zA-Z])|\d{2}\s\d{4}|_[a-zA-Z\s.-]+_)+(?:$|\s+|[()\[\]])+)+)',re.MULTILINE)
+re_not_maths = re.compile('((?:^|\s+)(?:(?:[(\[][a-zA-Z.,:\'\"]+(?=\s)|[a-zA-Z\'\".,;:]+[)\]]*|A\d{6}|(?<=[a-zA-Z])--?(?=[a-zA-Z])|\d{2}\s\d{4}|_[a-zA-Z\s.-]+_)+(?:$|\s+|[()\[\]])+)+)',re.MULTILINE)
 
 if __name__ == '__main__':
 	app.debug = True

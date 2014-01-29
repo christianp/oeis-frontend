@@ -10,7 +10,8 @@ a {
 .terms {
 	word-break: break-word;
 	line-height: 2em;
-	/* display: inline-block; */
+	font-family: monospace;
+	font-size: 1.5em;
 }
 .keywords ul {
     list-style: none;
@@ -30,13 +31,22 @@ a {
 
 .title {
     border-top: 2px solid black;
+    background-color: #eee;
 }
 .title .sequence-link {
     color: #666;
 }
+.title .index {
+    background-color: white;
+	display: inline-block;
+	padding: 0 0.2em;
+}
 .title .name {
     padding: 0 0.5em 0 0.1em;
     background-color: #eee;
+}
+.title .maths {
+    background: none;
 }
 .field h3.inline {
     display: inline;
@@ -54,3 +64,16 @@ a {
 	padding: 0 2px;
 	border-radius: 2px;
 }
+
+.reference, .link {
+    margin-bottom: 0.5em;
+}
+.offset {
+    font-weight: normal;
+    margin-left: 0.5em;
+	color: #666;
+}
+.program pre {
+    padding-bottom: 0.5em;
+}
+

@@ -1,10 +1,7 @@
-{% extends "base.html" %}
-
-{% block content %}
 <div class="entry">
 	<h2 class="title">
 		<span class="index">{{entry.index|addlinks}}</span>
-		<span class="name">{{entry.name|addlinks}}</span>
+		<span class="name">{{entry.name|maths|addlinks}}</span>
 	</h2>
 	<h3><a href="http://oeis.org/{{entry.index}}">Original entry on oeis.org</a></h3>
 	<div class="field author">
@@ -12,12 +9,8 @@
 		{{entry.author|addlinks}}
 	</div>
 	<div class="field terms-box">
-		<h3>Terms <span class="offset">Offset {{entry.offset}}</span></h3>
+		<h3>Terms <span class="offset">(Offset {{entry.offset}})</span></h3>
 		<span class="terms">{{entry.terms|join(', ')}}</span>
-	</div>
-	<div class="field offset">
-		<h3>Offset</h3>
-		{{entry.offset}}
 	</div>
 	<div class="field keywords">
 		<h3 class="inline">Keywords</h3>
@@ -36,7 +29,7 @@
 	{% if entry.examples %}
 	<div class="field examples">
 		<h3>Examples</h3>
-		{{entry.examples|addlinks|multiline}}
+		{{entry.examples|maths|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.references %}
@@ -91,4 +84,3 @@
 	</div>
 	{% endif %}
 </div>
-{% endblock content %}

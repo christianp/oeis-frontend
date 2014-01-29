@@ -1,3 +1,14 @@
-{% for entry in entries %}
-{% include 'entry.html' %}
-{% endfor %}
+{% extends "base.html" %}
+
+{% block content %}
+	{% if start>0 %}
+		<a href="{{ url_for('search',q=query,start=start-10) }}">Previous</a>
+	{% endif %}
+	{% if start<total-10 %}
+		<a href="{{ url_for('search',q=query,start=start+10) }}">Next</a>
+	{% endif %}
+
+	{% for entry in entries %}
+		{% include 'entry.html' %}
+	{% endfor %}
+{% endblock content %}
