@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>cp's OEIS frontend</title>
+
+		{% block javascript %}
+			<!-- mathjax -->
+			<script>
+				window.MathJax = {
+					tex2jax: {
+						inlineMath: [['$','$']],
+						displayMath: [['\\[','\\]']],
+						processEscapes: true
+					},
+					"SVG": {
+						font: "Latin-Modern"
+					}
+				}
+			</script>
+			<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		{% endblock javascript %}
+
+		{% block css %}
+		<link rel="stylesheet" href="{{ url_for('static',filename='normalize.css') }}"></link>
+		<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></link>
+		{% endblock css %}
+	</head>
+	<body>
+		<h1>cp's OEIS Frontend</h1>
+		<p>This is a frontend for the Online Encyclopedia of Integer Sequences, made by Christian Perfect. The idea is to provide OEIS entries in non-ancient HTML, and then to think about how they're presented visually.</p>
+		{% block content %}{% endblock %}
+	</body>
+</html>

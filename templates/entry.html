@@ -1,23 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
 <div class="entry">
 	<h2 class="title">
 		<span class="index">{{entry.index|addlinks}}</span>
 		<span class="name">{{entry.name|addlinks}}</span>
 	</h2>
 	<h3><a href="http://oeis.org/{{entry.index}}">Original entry on oeis.org</a></h3>
-	<div class="author">
-		<h3>Author</h3>
+	<div class="field author">
+		<h3 class="inline">Author</h3>
 		{{entry.author|addlinks}}
 	</div>
-	<div class="terms-box">
-		<h3>Terms</h3>
-		<span class="terms">{{entry.terms}}</span>
+	<div class="field terms-box">
+		<h3>Terms <span class="offset">Offset {{entry.offset}}</span></h3>
+		<span class="terms">{{entry.terms|join(', ')}}</span>
 	</div>
-	<div class="offset">
+	<div class="field offset">
 		<h3>Offset</h3>
 		{{entry.offset}}
 	</div>
-	<div class="keywords">
-		<h3>Keywords</h3>
+	<div class="field keywords">
+		<h3 class="inline">Keywords</h3>
 		<ul>
 			{% for keyword in entry.keywords %}
 			<li class="keyword"><a href="{{ url_for('show_keyword',keyword=keyword) }}">{{keyword}}</a></li>
@@ -25,19 +28,19 @@
 		</ul>
 	</div>
 	{% if entry.comments %}
-	<div class="comments">
+	<div class="field comments">
 		<h3>Comments</h3>
-		{{entry.comments|multiline|addlinks}}
+		{{entry.comments|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.examples %}
-	<div class="examples">
+	<div class="field examples">
 		<h3>Examples</h3>
 		{{entry.examples|multiline|addlinks}}
 	</div>
 	{% endif %}
 	{% if entry.references %}
-	<div class="references">
+	<div class="field references">
 		<h3>References</h3>
 		<ul class="reference-list">
 			{% for reference in entry.references %}
@@ -47,7 +50,7 @@
 	</div>
 	{% endif %}
 	{% if entry.links %}
-	<div class="links">
+	<div class="field links">
 		<h3>Links</h3>
 		<ul class="links-list">
 			{% for link in entry.links %}
@@ -57,13 +60,13 @@
 	</div>
 	{% endif %}
 	{% if entry.cross_references %}
-	<div class="cross-references">
+	<div class="field cross-references">
 		<h3>Crossrefs</h3>
 		{{entry.cross_references|addlinks}}
 	</div>
 	{% endif %}
 	{% if entry.programs %}
-	<div class="programs">
+	<div class="field programs">
 		<h3>Programs</h3>
 		<ul>
 			{% for language,program in entry.programs %}
@@ -76,15 +79,16 @@
 	</div>
 	{% endif %}
 	{% if entry.formula %}
-	<div class="formula">
+	<div class="field formula">
 		<h3>Formula</h3>
 		{{entry.formula|multiline|addlinks}}
 	</div>
 	{% endif %}
 	{% if entry.extensions %}
-	<div class="extensions">
+	<div class="field extensions">
 		<h3>Extensions</h3>
 		{{entry.extensions|multiline|addlinks}}
 	</div>
 	{% endif %}
 </div>
+{% endblock content %}

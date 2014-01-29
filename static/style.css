@@ -1,0 +1,56 @@
+body {
+	max-width: 1024px;
+	margin: 0 auto;
+}
+
+a {
+	text-decoration: none;
+}
+
+.terms {
+	word-break: break-word;
+	line-height: 2em;
+	/* display: inline-block; */
+}
+.keywords ul {
+    list-style: none;
+    display: inline;
+	padding: 0;
+}
+.keyword {
+    display: inline;
+    margin-right: 0.5em;
+}
+.line {
+    line-height: 1.6em;
+	margin-bottom: 0.5em;
+	padding-left: 1.5em;
+	text-indent: -1em;
+}
+
+.title {
+    border-top: 2px solid black;
+}
+.title .sequence-link {
+    color: #666;
+}
+.title .name {
+    padding: 0 0.5em 0 0.1em;
+    background-color: #eee;
+}
+.field h3.inline {
+    display: inline;
+    margin-right: 0.5em;
+}
+.field {
+    margin-bottom: 1em;
+    clear: both;
+}
+.maths {
+	font-family: monospace;
+	font-weight: bold;
+	font-size: 1.2em;
+	background-color: #f4f4f4;
+	padding: 0 2px;
+	border-radius: 2px;
+}
