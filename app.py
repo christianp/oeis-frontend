@@ -34,6 +34,14 @@ def show_entry(index):
 
 	return render_template('entry.html',entry=entry)
 
+@app.route('/search/<query>')
+def search(query):
+	request = urllib.request.urlopen('http://oeis.org/search?q=%s&fmt=text' % query).read().decode()
+	a_files = request.split('\n\n')[2:-1]
+	entries = [oeis.Entry(a_file) for a_file in a_files]
+
+	return render_template('search_results.html',entries=entries)
+
 @app.route('/user/<username>')
 def show_user(username):
 	sub_name = username.replace(' ','_')

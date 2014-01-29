@@ -20,7 +20,7 @@ class Entry:
 	comments = ''
 	keywords = []
 
-	programs = {}
+	programs = []
 
 	terms_lines = ['','','']
 	
@@ -71,12 +71,17 @@ class Entry:
 		if 'K' in fields:
 			self.keywords = get('K').split(',')
 
+		self.programs = []
 		if 'p' in fields:
-			self.programs['Maple'] = fields.get('p')
+			self.programs.append(('Maple',fields.get('p')))
 		if 't' in fields:
-			self.programs['Mathematica'] = fields.get('p')
+			self.programs.append(('Mathematica',fields.get('p')))
 		if 'o' in fields:
-			self.programs['other'] = get('o')
+			others = get('o')
+			programs = re.split('^\((\w+)\)\s*',others,0,re.MULTILINE)[1:]
+			pairs = [programs[i:i+2] for i in range(0,len(programs),2)]
+			self.programs += pairs
+		self.programs.sort(key=operator.itemgetter(0))
 
 def get_entry(index):
 	request = urllib.request.urlopen('http://oeis.org/search?q=id:%s&fmt=text' % index).read().decode()

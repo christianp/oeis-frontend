@@ -62,14 +62,14 @@
 		{{entry.cross_references|addlinks}}
 	</div>
 	{% endif %}
-	{% if entry.programs.keys() %}
+	{% if entry.programs %}
 	<div class="programs">
 		<h3>Programs</h3>
 		<ul>
-			{% for language,program in entry.programs.items() %}
+			{% for language,program in entry.programs %}
 			<li class="program">
 				<h4>{{language}}</h4>
-				<pre>{{program}}</pre>
+				<pre>{{program|addlinks}}</pre>
 			</li>
 			{% endfor %}
 		</ul>
