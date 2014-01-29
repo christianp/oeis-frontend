@@ -21,14 +21,17 @@ def multiline_filter(s):
 	lines = str(s).split('\n')
 	return Markup('\n'.join('<div class="line">%s</div>' % line for line in lines))
 
-@app.template_filter('addlinks')
-def addlinks_filter(s):
+@app.template_filter('maths')
+def maths_filter(s):
 	s = str(escape(s))
 	bits = re_not_maths.split(s)
 	for i in range(2,len(bits),2):
 		if bits[i]:
 			bits[i] = '<span class="maths">%s</span>' % bits[i]
-	s = ''.join(bits)
+	return ''.join(bits)
+
+@app.template_filter('addlinks')
+def addlinks_filter(s):
 	s = re.sub('(^|[\\W])_(.*?)_([\\W]|$)',link_to_author,s)
 	s = re.sub('(A\\d{6})',link_to_sequence,s)
 

@@ -30,13 +30,13 @@
 	{% if entry.comments %}
 	<div class="field comments">
 		<h3>Comments</h3>
-		{{entry.comments|addlinks|multiline}}
+		{{entry.comments|maths|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.examples %}
 	<div class="field examples">
 		<h3>Examples</h3>
-		{{entry.examples|multiline|addlinks}}
+		{{entry.examples|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.references %}
@@ -54,7 +54,7 @@
 		<h3>Links</h3>
 		<ul class="links-list">
 			{% for link in entry.links %}
-			<li class="link">{{link|addlinks}}</li>
+			<li class="link">{{link|safe}}</li>
 			{% endfor %}
 		</ul>
 	</div>
@@ -62,7 +62,7 @@
 	{% if entry.cross_references %}
 	<div class="field cross-references">
 		<h3>Crossrefs</h3>
-		{{entry.cross_references|addlinks}}
+		{{entry.cross_references|maths|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.programs %}
@@ -81,13 +81,13 @@
 	{% if entry.formula %}
 	<div class="field formula">
 		<h3>Formula</h3>
-		{{entry.formula|multiline|addlinks}}
+		{{entry.formula|maths|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.extensions %}
 	<div class="field extensions">
 		<h3>Extensions</h3>
-		{{entry.extensions|multiline|addlinks}}
+		{{entry.extensions|maths|addlinks|multiline}}
 	</div>
 	{% endif %}
 </div>
