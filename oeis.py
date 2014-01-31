@@ -109,7 +109,7 @@ def make_search_query(**kwargs):
 		if prefix in kwargs:
 			query.append('%s:%s' % (prefix,safe_quote(kwargs[prefix])))
 
-	return ' '.join(query)
+	return ' '.join(query).strip()
 
 def search(**kwargs):
 	args = {'fmt': 'text'}

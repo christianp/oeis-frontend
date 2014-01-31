@@ -170,6 +170,7 @@ a {
 .entry .graph-button {
 	position: relative;
 	display: block;
+	cursor: pointer;
 }
 .entry .graph-button:focus .graph {
 	display: block;

@@ -5,23 +5,6 @@
 		<meta name="viewport" content="width=device-width"/>
 		<title>cp's OEIS frontend</title>
 
-		{% block javascript %}
-			<!-- mathjax -->
-			<script>
-				window.MathJax = {
-					tex2jax: {
-						inlineMath: [['$','$']],
-						displayMath: [['\\[','\\]']],
-						processEscapes: true
-					},
-					"SVG": {
-						font: "Latin-Modern"
-					}
-				}
-			</script>
-			<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-		{% endblock javascript %}
-
 		{% block css %}
 		<link rel="stylesheet" href="{{ url_for('static',filename='normalize.css') }}"></link>
 		<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></link>
