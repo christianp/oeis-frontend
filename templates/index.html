@@ -1,36 +1,7 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>something by cp, who forgot to change the title</title>
-
-		<!-- jquery -->
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-
-		<!-- knockout -->
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
-
-		<!-- normalise.css -->
-		<link rel="stylesheet" href="http://css.cdn.tl/normalize.css"></link>
-
-		<!-- mathjax -->
-		<script>
-			window.MathJax = {
-				tex2jax: {
-					inlineMath: [['$','$']],
-					displayMath: [['\\[','\\]']],
-					processEscapes: true
-				},
-				"SVG": {
-					font: "Latin-Modern"
-				}
-			}
-		</script>
-		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-		<script type="text/javascript" src="js/thing.js"></script>
-		<link rel="stylesheet" href="css/thing.css"></link>
-	</head>
-	<body>
-	</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<form method="get" action="/search">
+	<input type="text" name="q" placeholder="1,2,3,..."/>
+	<button type="submit">Search</button>
+</form>
+{% endblock content %}

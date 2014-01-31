@@ -1,15 +1,17 @@
 from flask import Flask, redirect, render_template, url_for, Markup, request
 import oeis
-import urllib.request
+import urllib
 import re
 from jinja2 import escape
+
+basestr = unicode
 
 cache = {}
 def get_url(url):
 	if url in cache:
 		return cache[url]
 	else:
-		data = urllib.request.urlopen(url).read().decode()
+		data = urllib.urlopen(url).read().decode(encoding='utf-8')
 		cache[url] = data
 		print('got %s' % url)
 		return data
@@ -18,12 +20,12 @@ app = Flask(__name__)
 
 @app.template_filter('multiline')
 def multiline_filter(s):
-	lines = str(s).split('\n')
+	lines = basestr(s).split('\n')
 	return Markup('\n'.join('<div class="line">%s</div>' % line for line in lines))
 
 @app.template_filter('maths')
 def maths_filter(s):
-	s = str(escape(s))
+	s = basestr(escape(s))
 	bits = re_not_maths.split(s)
 	for i in range(2,len(bits),2):
 		if bits[i]:
@@ -46,6 +48,10 @@ def link_to_sequence(match):
 	index = match.group(0)
 	return render_template('link_to_sequence.html',index=index)
 
+@app.route('/')
+def index():
+	return render_template('index.html')
+
 @app.route('/entry/<index>')
 def show_entry(index):
 	data = get_url('http://oeis.org/search?q=id:%s&fmt=text' % index)
@@ -53,7 +59,7 @@ def show_entry(index):
 
 	entry = oeis.Entry(a_file)
 
-	return render_template('entry.html',entry=entry)
+	return render_template('show_entry.html',entry=entry)
 
 @app.route('/search/')
 def search():
@@ -78,7 +84,9 @@ def show_keyword(keyword):
 
 # An attempt to split out maths notation.
 # Would be good if I could think of a way of converting pseudo-TeX to real TeX
-re_not_maths = re.compile('((?:^|\s+)(?:(?:[(\[][a-zA-Z.,:\'\"]+(?=\s)|[a-zA-Z\'\".,;:]+[)\]]*|A\d{6}|(?<=[a-zA-Z])--?(?=[a-zA-Z])|\d{2}\s\d{4}|_[a-zA-Z\s.-]+_)+(?:$|\s+|[()\[\]])+)+)',re.MULTILINE)
+re_not_maths = re.compile(r'((?:^|\s+)(?:(?:[(\[][a-zA-Z.,:\'\"]+(?=\s)|[a-zA-Z\'\".,;:]+[)\]]*|A\d{6}|(?<=[a-zA-Z])--?(?=[a-zA-Z])|\d{2}\s\d{4}|_[a-zA-Z\s.-]+_)+(?:$|\s|[()\[\]])+)+)',re.MULTILINE)
+
+app.debug = True
 
 if __name__ == '__main__':
 	app.debug = True

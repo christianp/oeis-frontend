@@ -1,7 +1,7 @@
 import re
 import operator
 import itertools
-import urllib.request
+import urllib
 
 re_entry_line = re.compile('%(?P<linetype>\w) (?P<index>A\d{6}) (?P<content>.*)$')
 class Entry:
@@ -85,7 +85,7 @@ class Entry:
 		self.programs.sort(key=operator.itemgetter(0))
 
 def get_entry(index):
-	request = urllib.request.urlopen('http://oeis.org/search?q=id:%s&fmt=text' % index).read().decode()
+	request = urllib.urlopen('http://oeis.org/search?q=id:%s&fmt=text' % index).read().decode(encoding='utf-8')
 	a_file = request.split('\n\n')[2]
 	return Entry(a_file)
 
