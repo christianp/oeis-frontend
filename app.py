@@ -81,13 +81,14 @@ def entry_extra(index,anything):
 
 @app.route('/search/')
 def search(**kwargs):
-	query = request.args.get('q')
+	query = request.args.get('q','')
 	start = int(request.args.get('start',0))
 
-	if not query:
+	extra_params = {param:request.args.get(param) for param in request.args if param in oeis.search_params}
+
+	if not (query or extra_params):
 		return redirect(url_for('index'))
 
-	extra_params = {param:request.args.get(param) for param in request.args if param in oeis.search_params}
 
 	total, entries = oeis.search(query=query,start=start,**extra_params)
 
@@ -105,7 +106,7 @@ def show_user(username):
 
 @app.route('/keyword/<keyword>')
 def show_keyword(keyword):
-	return redirect('http://oeis.org/search?q=keyword:%s' % keyword)
+	return redirect(url_for('search',keyword=keyword))
 
 # An attempt to split out maths notation.
 # Would be good if I could think of a way of converting pseudo-TeX to real TeX
