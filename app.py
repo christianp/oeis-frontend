@@ -80,14 +80,16 @@ def entry_extra(index,anything):
 	return redirect('http://oeis.org/%s/%s?%s' % (index,anything,request.query_string))
 
 @app.route('/search/')
-def search():
+def search(**kwargs):
 	query = request.args.get('q')
 	start = int(request.args.get('start',0))
 
 	if not query:
 		return redirect(url_for('index'))
 
-	total, entries = oeis.search(query=query,start=start)
+	extra_params = {param:request.args.get(param) for param in request.args if param in oeis.search_params}
+
+	total, entries = oeis.search(query=query,start=start,**extra_params)
 
 	end = start + len(entries)
 

@@ -87,6 +87,8 @@ class Entry:
 	def __repr__(self):
 		return '%s %s' % (self.index, self.name)
 
+search_prefixes = ['id','seq','signed','name','offset','comment','ref','link','formula','example','maple','mathematica','program','xref','keyword','author','extension','subseq','signedsubseq']
+search_params = ['query','sequence','contains','sort','start']+search_prefixes
 def search(**kwargs):
 	args = {'fmt': 'text'}
 	query = []
@@ -100,8 +102,7 @@ def search(**kwargs):
 	if 'contains' in kwargs:	#terms which must be included, in any order
 		query.append(' '.join(str(x) for x in kwargs['contains']))
 
-	prefixes = ['id','seq','signed','name','offset','comment','ref','link','formula','example','maple','mathematica','program','xref','keyword','author','extension','subseq','signedsubseq']
-	for prefix in prefixes:
+	for prefix in search_prefixes:
 		if prefix in kwargs:
 			query.append('%s:"%s"' % (prefix,kwargs[prefix]))
 
@@ -113,13 +114,11 @@ def search(**kwargs):
 
 	args['q'] = ' '.join(query)
 	args_string = '&'.join('%s=%s' %(key,value) for key,value in args.items())
-	print(args_string)
 	url = 'http://oeis.org/search?%s' % args_string
 
 	data = urllib.urlopen(url).read().decode(encoding='utf-8')
 	sections = data.split('\n\n')
 
-	print(sections[1])
 	total = int(re.search('Showing \d+-\d+ of (?P<total>\d+)',sections[1]).group('total'))
 	a_files = data.split('\n\n')[2:-1]
 	entries = [Entry(a_file) for a_file in a_files]
