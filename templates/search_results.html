@@ -1,6 +1,8 @@
-{% extends "base.html" %}
+{% extends "subpage.html" %}
 
 {% block content %}
+	{{ super() }}
+
 	{% if start>0 %}
 		<a href="{{ url_for('search',q=query,start=start-10) }}">Previous</a>
 	{% endif %}

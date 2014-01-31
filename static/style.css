@@ -94,3 +94,19 @@ a {
     list-style: none;
     padding-left: 0;
 }
+
+.search-box {
+	text-align: center;
+	padding: 1em 0;
+}
+.search-box .query {
+	max-width: 90%;
+	width: 30em;
+	padding: 0.3em;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	margin: 0 0.3em;
+}
+.search-box button[type=submit] {
+	height: 1.9em;
+}
