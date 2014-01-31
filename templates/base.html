@@ -27,8 +27,12 @@
 		{% endblock css %}
 	</head>
 	<body>
-		<h1>cp's OEIS Frontend</h1>
-		<p>This is a frontend for the Online Encyclopedia of Integer Sequences, made by Christian Perfect. The idea is to provide OEIS entries in non-ancient HTML, and then to think about how they're presented visually.</p>
+		<div class="header">
+			<h1 class="logo"><a href="/">cp's OEIS Frontend</a></h1>
+			<div class="header-text">
+				<p>This is a front-end for the Online Encyclopedia of Integer Sequences, made by <a href="http://checkmyworking.com">Christian Perfect</a>. The idea is to provide OEIS entries in non-ancient HTML, and then to think about how they're presented visually.</p>
+			</div>
+		</div>
 		{% block content %}{% endblock %}
 	</body>
 </html>

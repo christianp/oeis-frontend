@@ -1,7 +1,4 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="get" action="/search">
-	<input type="text" name="q" placeholder="1,2,3,..."/>
-	<button type="submit">Search</button>
-</form>
+	{% include 'search_box.html' %}
 {% endblock content %}

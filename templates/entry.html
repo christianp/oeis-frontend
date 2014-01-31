@@ -1,40 +1,38 @@
 <div class="entry">
-	<h2 class="title">
+	<h3 class="title">
 		<span class="index">{{entry.index|addlinks}}</span>
 		<span class="name">{{entry.name|maths|addlinks}}</span>
-	</h2>
-	<h3><a href="http://oeis.org/{{entry.index}}">Original entry on oeis.org</a></h3>
+	</h3>
+	<p><a href="http://oeis.org/{{entry.index}}">Original entry on oeis.org</a></p>
+	<div class="field terms-box">
+		<span class="terms">{{entry.terms|join(', ')}}</span>
+		<div class="offset">Offset: {{entry.offset}}</div>
+	</div>
 	<div class="field author">
-		<h3 class="inline">Author</h3>
+		<h4 class="header">Author</h4>
 		{{entry.author|addlinks}}
 	</div>
-	<div class="field terms-box">
-		<h3>Terms <span class="offset">(Offset {{entry.offset}})</span></h3>
-		<span class="terms">{{entry.terms|join(', ')}}</span>
-	</div>
 	<div class="field keywords">
-		<h3 class="inline">Keywords</h3>
+		<h4 class="header">Keywords</h4>
 		<ul>
-			{% for keyword in entry.keywords %}
-			<li class="keyword"><a href="{{ url_for('show_keyword',keyword=keyword) }}">{{keyword}}</a></li>
-			{% endfor %}
+			{% for keyword in entry.keywords %}<li class="keyword"><a href="{{ url_for('show_keyword',keyword=keyword) }}">{{keyword}}</a></li>{% endfor %}
 		</ul>
 	</div>
 	{% if entry.comments %}
 	<div class="field comments">
-		<h3>Comments</h3>
+		<h4 class="header">Comments</h4>
 		{{entry.comments|maths|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.examples %}
 	<div class="field examples">
-		<h3>Examples</h3>
+		<h4 class="header">Examples</h4>
 		{{entry.examples|maths|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.references %}
 	<div class="field references">
-		<h3>References</h3>
+		<h4 class="header">References</h4>
 		<ul class="reference-list">
 			{% for reference in entry.references %}
 			<li class="reference">{{reference|addlinks}}</li>
@@ -44,7 +42,7 @@
 	{% endif %}
 	{% if entry.links %}
 	<div class="field links">
-		<h3>Links</h3>
+		<h4 class="header">Links</h4>
 		<ul class="links-list">
 			{% for link in entry.links %}
 			<li class="link">{{link|safe}}</li>
@@ -54,17 +52,17 @@
 	{% endif %}
 	{% if entry.cross_references %}
 	<div class="field cross-references">
-		<h3>Crossrefs</h3>
+		<h4 class="header">Crossrefs</h4>
 		{{entry.cross_references|maths|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.programs %}
 	<div class="field programs">
-		<h3>Programs</h3>
+		<h4 class="header">Programs</h4>
 		<ul>
 			{% for language,program in entry.programs %}
 			<li class="program">
-				<h4>{{language}}</h4>
+				<h5 class="header">{{language}}</h5>
 				<pre>{{program|addlinks}}</pre>
 			</li>
 			{% endfor %}
@@ -73,13 +71,13 @@
 	{% endif %}
 	{% if entry.formula %}
 	<div class="field formula">
-		<h3>Formula</h3>
+		<h4 class="header">Formula</h4>
 		{{entry.formula|maths|addlinks|multiline}}
 	</div>
 	{% endif %}
 	{% if entry.extensions %}
 	<div class="field extensions">
-		<h3>Extensions</h3>
+		<h4 class="header">Extensions</h4>
 		{{entry.extensions|maths|addlinks|multiline}}
 	</div>
 	{% endif %}

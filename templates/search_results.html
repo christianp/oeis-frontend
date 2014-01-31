@@ -6,6 +6,7 @@
 	{% if start>0 %}
 		<a href="{{ url_for('search',q=query,start=start-10) }}">Previous</a>
 	{% endif %}
+	Showing {{start+1}}-{{end}} of {{total}} results.
 	{% if start<total-10 %}
 		<a href="{{ url_for('search',q=query,start=start+10) }}">Next</a>
 	{% endif %}

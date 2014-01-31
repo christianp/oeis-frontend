@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="user">
+		<h2>User: <span class="name">{{name}}</span></h2>
+
+		<p><a href="{{wiki_url}}">{{name}}'s wiki page</a>.</p>
+
+		<div class="entries">
+			<p>{{name}} has authored {{ total_entries }} sequences. {% if total_entries > 10 %}Here are the ten most recent ones:{% endif %}</p>
+			{% for entry in entries %}
+				{% include 'entry.html' %}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock content %}

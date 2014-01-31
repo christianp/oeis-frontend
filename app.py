@@ -65,18 +65,20 @@ def show_entry(index):
 def search():
 	query = request.args.get('q')
 	start = int(request.args.get('start',0))
-	data = get_url('http://oeis.org/search?q=%s&start=%i&fmt=text' % (query,start))
-	sections = data.split('\n\n')
-	total = int(re.search('Showing \d+-\d+ of (?P<total>\d+)',sections[1]).group('total'))
-	a_files = data.split('\n\n')[2:-1]
-	entries = [oeis.Entry(a_file) for a_file in a_files]
 
-	return render_template('search_results.html',entries=entries,start=start,query=query,total=total)
+	total, entries = oeis.search(query=query,start=start)
+
+	end = start + len(entries)
+
+	return render_template('search_results.html',entries=entries,start=start,query=query,total=total,end=end)
 
 @app.route('/user/<username>')
 def show_user(username):
 	sub_name = username.replace(' ','_')
-	return redirect('http://oeis.org/wiki/User:%s' % sub_name)
+	wiki_url = 'http://oeis.org/wiki/User:%s' % sub_name
+	total_entries, entries = oeis.search(author=username,sort='created')
+
+	return render_template('show_user.html', name=username, wiki_url=wiki_url, entries=entries, total_entries=total_entries)
 
 @app.route('/keyword/<keyword>')
 def show_keyword(keyword):
