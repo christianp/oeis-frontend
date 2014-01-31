@@ -5,7 +5,9 @@
 	</h3>
 	<p><a href="http://oeis.org/{{entry.index}}">Original entry on oeis.org</a></p>
 	<div class="field terms-box">
-		<span class="terms">{{entry.terms|join(', ')}}</span>
+		<div class="terms">
+			{% for term in entry.terms %}<span class="term">{{term}}</span>{%if not loop.last %}, {% endif %}{% endfor %}
+		</div>
 		<div class="offset">Offset: {{entry.offset}}</div>
 	</div>
 	<div class="field author">

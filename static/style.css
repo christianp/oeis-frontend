@@ -139,6 +139,8 @@ a {
 	border: 1px solid #ccc;
 	border-radius: 2px;
 	margin: 0 0.3em;
+	font-family: monospace;
+	font-size: 1.25em;
 }
 .search-box button[type=submit] {
 	height: 1.9em;
@@ -146,4 +148,22 @@ a {
 
 .user .name {
 	font-weight: normal;
+}
+
+.example-searches {
+	line-height: 1.5em;
+	list-style: none;
+}
+.example-searches .query {
+	font-family: monospace;
+	font-size: 1.25em;
+}
+.footer {
+    text-align: center;
+    border-top: 1px solid #ddd;
+    margin-top: 5em;
+    font-size: 0.8em;
+}
+.footer .license {
+    font-style: italic;
 }

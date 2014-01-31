@@ -1,4 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 	{% include 'search_box.html' %}
+
+	<div class="index">
+		<p>
+			The main uses for the OEIS are to <em>identify</em> a sequence, and to <em>obtain more terms, formulas, references, links, programs, etc.</em> for a sequence.
+		</p>
+		<p>You can search for integer sequences by entering the first few terms, or some words to describe it.</p>
+		<p>Leave off the first term or two, because people may disagree about where the sequence begins.</p>
+
+		<h4>Examples of searches</h4>
+		<ul class="example-searches">
+			<li><a class="query" href="{{ url_for('search',q='1,4,9,16,25,36,64') }}">1,4,9,16,15,36,64</a> - sequences containing this subsequence.</li>
+			<li><a class="query" href="{{ url_for('search',q='5 8 13 233 39088169') }}">5 8 13 233 39088169</a> - sequences containing these terms.</li>
+			<li><a class="query" href="{{ url_for('search',q='"Fermat\'s little theorem"') }}">"Fermat's little theorem"</a> - entries with this text in any field.</li>
+			<li><a class="query" href="{{ url_for('search',q='author:guy keyword:nice') }}">author:guy keyword:nice</a></li>
+		</ul>
+	</div>
 {% endblock content %}

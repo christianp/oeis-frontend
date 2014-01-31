@@ -3,8 +3,11 @@ import oeis
 import urllib
 import re
 from jinja2 import escape
+import werkzeug.routing
 
 basestr = unicode
+
+app = Flask(__name__)
 
 cache = {}
 def get_url(url):
@@ -16,7 +19,18 @@ def get_url(url):
 		print('got %s' % url)
 		return data
 
-app = Flask(__name__)
+class SequenceConverter(werkzeug.routing.BaseConverter):
+	def __init__(self,url_map):
+		super(SequenceConverter,self).__init__(url_map)
+		self.regex = 'A\\d{6}'
+
+	def to_python(self,value):
+		return value
+
+	def to_url(self,value):
+		return value
+
+app.url_map.converters['sequence'] = SequenceConverter
 
 @app.template_filter('multiline')
 def multiline_filter(s):
@@ -50,21 +64,28 @@ def link_to_sequence(match):
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+	return render_template('index.html',focus_search=True)
 
-@app.route('/entry/<index>')
+@app.route('/<sequence:index>')
 def show_entry(index):
 	data = get_url('http://oeis.org/search?q=id:%s&fmt=text' % index)
 	a_file = data.split('\n\n')[2]
 
 	entry = oeis.Entry(a_file)
 
-	return render_template('show_entry.html',entry=entry)
+	return render_template('show_entry.html',entry=entry,query='id:%s' % entry.index)
+
+@app.route('/<sequence:index>/<anything>')
+def entry_extra(index,anything):
+	return redirect('http://oeis.org/%s/%s' % (index,anything))
 
 @app.route('/search/')
 def search():
 	query = request.args.get('q')
 	start = int(request.args.get('start',0))
+
+	if not query:
+		return redirect(url_for('index'))
 
 	total, entries = oeis.search(query=query,start=start)
 
