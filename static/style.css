@@ -24,7 +24,7 @@ a {
 	text-decoration: none;
 }
 
-.sequence-link {
+.field .sequence-link {
 	border-bottom: 1px dashed;
 }
 
