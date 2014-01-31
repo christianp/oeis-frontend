@@ -84,17 +84,19 @@ def search(**kwargs):
 	query = request.args.get('q','')
 	start = int(request.args.get('start',0))
 
-	extra_params = {param:request.args.get(param) for param in request.args if param in oeis.search_params}
+	params = {param:request.args.get(param) for param in request.args if param in oeis.search_params and param not in ['query','start']}
 
-	if not (query or extra_params):
+	if not (query or params):
 		return redirect(url_for('index'))
 
+	params['query'] = query
+	params['start'] = start
 
-	total, entries = oeis.search(query=query,start=start,**extra_params)
+	total, entries = oeis.search(**params)
 
 	end = start + len(entries)
 
-	return render_template('search_results.html',entries=entries,start=start,query=query,total=total,end=end)
+	return render_template('search_results.html',entries=entries,start=start,query=oeis.make_search_query(**params),total=total,end=end)
 
 @app.route('/user/<username>')
 def show_user(username):

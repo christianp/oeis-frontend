@@ -89,10 +89,10 @@ class Entry:
 
 search_prefixes = ['id','seq','signed','name','offset','comment','ref','link','formula','example','maple','mathematica','program','xref','keyword','author','extension','subseq','signedsubseq']
 search_params = ['query','sequence','contains','sort','start']+search_prefixes
-def search(**kwargs):
-	args = {'fmt': 'text'}
+
+def make_search_query(**kwargs):
 	query = []
-	
+
 	if 'query' in kwargs:	#general query
 		query.append(kwargs['query'])
 
@@ -102,17 +102,25 @@ def search(**kwargs):
 	if 'contains' in kwargs:	#terms which must be included, in any order
 		query.append(' '.join(str(x) for x in kwargs['contains']))
 
+	def safe_quote(s):
+		return '"%s"' % s if ' ' in s else s
+
 	for prefix in search_prefixes:
 		if prefix in kwargs:
-			query.append('%s:"%s"' % (prefix,kwargs[prefix]))
+			query.append('%s:%s' % (prefix,safe_quote(kwargs[prefix])))
 
+	return ' '.join(query)
+
+def search(**kwargs):
+	args = {'fmt': 'text'}
+	
 	if 'sort' in kwargs:
 		args['sort'] = kwargs['sort']
 
 	if 'start' in kwargs:
 		args['start'] = kwargs['start']
 
-	args['q'] = ' '.join(query)
+	args['q'] = make_search_query(**kwargs)
 	args_string = '&'.join('%s=%s' %(key,value) for key,value in args.items())
 	url = 'http://oeis.org/search?%s' % args_string
 
