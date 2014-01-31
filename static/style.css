@@ -1,6 +1,7 @@
 body {
 	max-width: 1024px;
 	margin: 0 auto;
+	padding: 0 0.5em;
 }
 
 a {
@@ -12,6 +13,9 @@ a {
 	line-height: 2em;
 	font-family: monospace;
 	font-size: 1.5em;
+	background: #eee;
+	display: inline-block;
+	padding: 0 0.5em;
 }
 .keywords ul {
     list-style: none;
@@ -55,6 +59,7 @@ a {
 .field {
     margin-bottom: 1em;
     clear: both;
+    padding-left: 1.2em;
 }
 .maths {
 	font-family: monospace;
@@ -72,8 +77,20 @@ a {
     font-weight: normal;
     margin-left: 0.5em;
 	color: #666;
+    font-size: 1em;
+    margin-top: 0.3em;
 }
 .program pre {
     padding-bottom: 0.5em;
+	padding-left: 1em;
 }
 
+.field h3 {
+    margin-left: -1em;
+}
+.entry {
+}
+.programs ul {
+    list-style: none;
+    padding-left: 0;
+}

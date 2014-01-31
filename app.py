@@ -21,7 +21,7 @@ app = Flask(__name__)
 @app.template_filter('multiline')
 def multiline_filter(s):
 	lines = basestr(s).split('\n')
-	return Markup('\n'.join('<div class="line">%s</div>' % line for line in lines))
+	return Markup('<div class="multiline">'+'\n'.join('<div class="line">%s</div>' % line for line in lines)+'</div>')
 
 @app.template_filter('maths')
 def maths_filter(s):
@@ -84,7 +84,7 @@ def show_keyword(keyword):
 
 # An attempt to split out maths notation.
 # Would be good if I could think of a way of converting pseudo-TeX to real TeX
-re_not_maths = re.compile(r'((?:^|\s+)(?:(?:[(\[][a-zA-Z.,:\'\"]+(?=\s)|[a-zA-Z\'\".,;:]+[)\]]*|A\d{6}|(?<=[a-zA-Z])--?(?=[a-zA-Z])|\d{2}\s\d{4}|_[a-zA-Z\s.-]+_)+(?:$|\s|[()\[\]])+)+)',re.MULTILINE)
+re_not_maths = re.compile(r'((?:^|\s+)(?:(?:[(\[][a-zA-Z.,:\\\'\\"]+(?=\s)|[a-zA-Z\'\".,;:]+[)\]]*|A\d{6}|(?<=[a-zA-Z])--?(?=[a-zA-Z])|\d{2}\s\d{4}|_[a-zA-Z\s.-]+_)+(?:$|\s|[()\[\]])+)+)',re.MULTILINE)
 
 app.debug = True
 
