@@ -77,7 +77,7 @@ def show_entry(index):
 
 @app.route('/<sequence:index>/<anything>')
 def entry_extra(index,anything):
-	return redirect('http://oeis.org/%s/%s' % (index,anything))
+	return redirect('http://oeis.org/%s/%s?%s' % (index,anything,request.query_string))
 
 @app.route('/search/')
 def search():

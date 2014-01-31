@@ -10,6 +10,13 @@
 		</div>
 		<div class="offset">Offset: {{entry.offset}}</div>
 	</div>
+	<div class="field views">
+		<span tabindex="1" class="graph-button">Graph
+			<div class="graph">
+				<img src="{{url_for('show_entry',index=entry.index)}}/graph?png=1"/>
+			</div>
+		</span>
+	</div>
 	<div class="field author">
 		<h4 class="header">Author</h4>
 		{{entry.author|addlinks}}
