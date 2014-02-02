@@ -11,12 +11,22 @@
 		<div class="offset">Offset: {{entry.offset}}</div>
 	</div>
 	<div class="field views">
-		<span tabindex="1" class="graph-button">Graph
-			<div class="graph">
-				{% set graph_url = url_for('show_entry',index=entry.index)+'/graph?png=1' %}
-				<a href="{{graph_url}}" target="_blank"><img src="{{graph_url}}"/></a>
-			</div>
-		</span>
+		<h4 class="header">Views</h4>
+
+		<ul class="inline-list">
+			<li tabindex="1" class="view graph-button"><a href="#" title="Pin plot and scatter plot of this sequence">Graph</a>
+				<div class="graph">
+					{% set graph_url = url_for('sequence_graph',index=entry.index) %}
+					<a href="{{graph_url}}" target="_blank"><img src="{{graph_url}}"/></a>
+				</div>
+			</li>
+			<li><a class="view" href="{{ url_for('sequence_list',index=entry.index) }}" title="This sequence's terms as a simple table or list">List</a></li>
+			<li><a class="view" href="{{ url_for('sequence_refs',index=entry.index) }}" title="Sequences which refer to this one">Refs</a></li>
+			<li><a class="view" href="{{ url_for('sequence_listen',index=entry.index) }}" title="Listen to the terms of this sequence interpreted as musical notes">Listen</a></li>
+			<li><a class="view" href="{{ url_for('sequence_history',index=entry.index) }}" title="Changes made to this entry">History</a></li>
+			<li><a class="view" href="{{ url_for('sequence_text',index=entry.index) }}" title="This entry in plaintext format">Text</a></li>
+			<li><a class="view" href="{{ url_for('sequence_internal',index=entry.index) }}" title="This entry as it is stored internally">Internal format</a></li>
+		</ul>
 	</div>
 	<div class="field author">
 		<h4 class="header">Author</h4>
@@ -24,7 +34,7 @@
 	</div>
 	<div class="field keywords">
 		<h4 class="header">Keywords</h4>
-		<ul>
+		<ul class="inline-list">
 			{% for keyword in entry.keywords %}<li class="keyword"><a href="{{ url_for('show_keyword',keyword=keyword) }}">{{keyword}}</a></li>{% endfor %}
 		</ul>
 	</div>

@@ -1,0 +1,15 @@
+{% extends 'subpage.html' %}
+
+{% block content %}
+	<div class="entry internal">
+		<h3 class="title">
+			<span class="index">{{entry.index|addlinks}}</span>
+			<span class="name">{{entry.name|maths|addlinks}}</span>
+		</h3>
+
+		<div><a href="{{url_for('sequence_text',index=entry.index)}}">This page as a plain text file</a>.</div>
+
+		<pre>{{entry.a_file}}</pre>
+	</div>
+{% endblock content %}
+

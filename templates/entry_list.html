@@ -1,0 +1,37 @@
+{% extends 'subpage.html' %}
+
+{% block content %}
+	<div class="entry list">
+		<h3 class="title">
+			<span class="index">{{entry.index|addlinks}}</span>
+			<span class="name">{{entry.name|maths|addlinks}}</span>
+		</h3>
+
+		<div class="field values">
+			<h4 class="header">Table of values</h4>
+
+			<table class="values-table">
+				<thead>
+					<tr>
+						<th>n</th>
+						<th>a(n)</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for n,term in entry.values %}
+					<tr>
+						<td>{{n}}</td>
+						<td>{{term}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+		<div class="field list">
+			<h4 class="header">List of values</h4>
+
+			<div class="list">{{entry.terms}}</div>
+		</div>
+	</div>
+{% endblock content %}
