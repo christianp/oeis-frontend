@@ -1,4 +1,5 @@
 from flask import Flask, redirect, render_template, url_for, Markup, request
+from functools import wraps
 import oeis
 import urllib
 import re
@@ -66,14 +67,52 @@ def link_to_sequence(match):
 def index():
 	return render_template('index.html',focus_search=True)
 
-@app.route('/<sequence:index>')
-def show_entry(index):
-	data = get_url('http://oeis.org/search?q=id:%s&fmt=text' % index)
-	a_file = data.split('\n\n')[2]
+# decorator, takes an index parameter, attaches an Entry object
+def get_entry(fn):
+	@wraps(fn)
+	def fn_with_entry(index,*args,**kwargs):
+		data = get_url('http://oeis.org/search?q=id:%s&fmt=text' % index)
+		a_file = data.split('\n\n')[2]
 
-	entry = oeis.Entry(a_file)
+		entry = oeis.Entry(a_file)
 
-	return render_template('show_entry.html',entry=entry,query='id:%s' % entry.index)
+		return fn(entry=entry,*args,**kwargs)
+	return fn_with_entry
+
+@app.route('/<sequence:index>/')
+@get_entry
+def show_sequence(entry):
+	return render_template('show_entry.html',entry=entry,query=entry.query)
+
+@app.route('/<sequence:index>/list')
+@get_entry
+def sequence_list(entry):
+	return render_template('entry_list.html',entry=entry,query=entry.query)
+
+@app.route('/<sequence:index>/refs')
+def sequence_refs(index):
+	return search(query='%s -id:%s' % (index,index))
+
+@app.route('/<sequence:index>/listen')
+def sequence_listen(index):
+	return redirect('http://oeis.org/play?seq=%s' % index)
+
+@app.route('/<sequence:index>/history')
+def sequence_history(index):
+	return redirect('http://oeis.org/history?seq=%s' % index)
+
+@app.route('/<sequence:index>/text')
+def sequence_text(index):
+	return redirect('http://oeis.org/search?q=id:%s&fmt=text' % index)
+
+@app.route('/<sequence:index>/internal')
+@get_entry
+def sequence_internal(entry):
+	return render_template('entry_internal.html',entry=entry,query=entry.query)
+
+@app.route('/<sequence:index>/graph')
+def sequence_graph(index):
+	return redirect('http://oeis.org/%s/graph?png=1' % index)
 
 @app.route('/<sequence:index>/<anything>')
 def entry_extra(index,anything):
@@ -81,7 +120,7 @@ def entry_extra(index,anything):
 
 @app.route('/search/')
 def search(**kwargs):
-	query = request.args.get('q','')
+	query = request.args.get('q',kwargs.get('query',''))
 	start = int(request.args.get('start',0))
 
 	params = {param:request.args.get(param) for param in request.args if param in oeis.search_params and param not in ['query','start']}

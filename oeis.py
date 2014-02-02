@@ -28,9 +28,18 @@ class Entry:
 	def terms(self):
 		all_terms = ''.join(self.terms_lines)
 		return [int(x) for x in all_terms.split(',')]
+
+	@property
+	def query(self):
+		return 'id:%s' % self.index
+
+	@property
+	def values(self):
+		return enumerate(self.terms,self.offset)
 	
-	def __init__(self,str):
-		lines = str.split('\n')
+	def __init__(self,a_file):
+		self.a_file = a_file
+		lines = a_file.split('\n')
 		def get_matches():
 			for line in lines:
 				try:

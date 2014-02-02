@@ -37,16 +37,16 @@ a {
 	display: block;
 	padding: 0 0.5em;
 }
-.keywords ul {
+.inline-list {
     list-style: none;
     display: inline;
 	padding: 0;
 }
-.keyword {
+.inline-list li {
     display: inline;
     margin-right: 0.5em;
 }
-.keyword:not(:last-child):after {
+.inline-list li:not(:last-child):after {
     content: '⋅';
     display: inline-block;
     margin-left: 0.5em;
@@ -167,15 +167,18 @@ a {
 .footer .license {
     font-style: italic;
 }
-.entry .graph-button {
+.entry .field.views {
 	position: relative;
-	display: block;
+}
+.entry .graph-button {
 	cursor: pointer;
 }
-.entry .graph-button:focus .graph {
+.entry .graph-button .graph {
 	display: block;
 	position: absolute;
 	top: 2em;
+	left: 1em;
+	right: 2em;
 }
 .entry .graph-button:not(:focus) .graph {
 	display: none;
@@ -185,4 +188,37 @@ a {
 	padding: 10px;
 	background: white;
 	max-width: 100%;
+	position: absolute;
+	left: 0;
+	margin-bottom: 2em;
+}
+.values-table {
+    font-family: monospace;
+    font-size: 1.5em;
+    margin: 0 auto;
+}
+.values-table col.n {
+    text-align: left;
+}
+.values-table td:first-child, .values-table th:first-child {
+    text-align: left;
+    padding-right: 1em;
+}
+.values-table th:last-child, .values-table td:last-child {
+    text-align: right;
+    padding-left: 1em;
+}
+.values-table tr:nth-child(odd) td {
+    background-color: #f4f4f4;
+}
+.values-table th {
+    /* font-size: 1.5em; */
+}
+.entry.list .name {
+    font-weight: normal;
+}
+.entry.list .field.list .list {
+	font-family: monospace;
+	font-size: 1.25em;
+	text-indent: -0.5em;
 }
