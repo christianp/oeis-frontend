@@ -191,6 +191,7 @@ a {
 	position: absolute;
 	left: 0;
 	margin-bottom: 2em;
+	z-index: 2;
 }
 .values-table {
     font-family: monospace;
