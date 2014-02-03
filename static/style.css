@@ -1,7 +1,8 @@
 body {
-	max-width: 1024px;
+	max-width: 750px;
 	margin: 0 auto;
 	padding: 0 0.5em;
+	font-size: 12px;
 }
 .header {
 	border-bottom: 1px solid #eee;
@@ -64,8 +65,9 @@ a {
 
 .title {
     border-top: 2px solid black;
-    background-color: #ffc;
-    line-height: 2em;
+    background-color: #eef;
+    line-height: 2.5em;
+    padding: 0 2em;
 }
 .title .index .sequence-link {
     color: #666;
@@ -75,16 +77,16 @@ a {
 	display: inline-block;
 	
     padding: 0.1em 0.5em;
+    vertical-align: top;
 }
 .title .name {
     padding: 0 0.5em 0 0.3em;
-    /* background-color: #eee; */
 }
 .title .maths {
     background: none;
 }
 .field .header {
-    margin-left: -1em;
+    margin-left: -2em;
 }
 .field .header.inline {
     display: inline;
@@ -93,7 +95,7 @@ a {
 .field {
     margin-bottom: 1em;
     clear: both;
-    padding: 0 1.2em;
+    padding: 0 5em;
 }
 .maths {
 	font-family: monospace;
@@ -123,6 +125,7 @@ a {
 }
 
 .entry {
+    margin-bottom: 5em;
 }
 .programs ul {
     list-style: none;
