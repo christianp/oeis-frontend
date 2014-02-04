@@ -120,7 +120,10 @@ def entry_extra(index,anything):
 
 @app.route('/search/')
 def search(**kwargs):
-	query = request.args.get('q',kwargs.get('query',''))
+	if 'q' in request.args:
+		query = request.args.get('q')
+	else:
+		query = kwargs.get('query','')
 	start = int(request.args.get('start',0))
 
 	params = {param:request.args.get(param) for param in request.args if param in oeis.search_params and param not in ['query','start']}

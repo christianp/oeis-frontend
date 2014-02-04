@@ -136,9 +136,12 @@ def search(**kwargs):
 	data = urllib.urlopen(url).read().decode(encoding='utf-8')
 	sections = data.split('\n\n')
 
-	total = int(re.search('Showing \d+-\d+ of (?P<total>\d+)',sections[1]).group('total'))
-	a_files = data.split('\n\n')[2:-1]
-	entries = [Entry(a_file) for a_file in a_files]
+	try:
+		total = int(re.search('Showing \d+-\d+ of (?P<total>\d+)',sections[1]).group('total'))
+		a_files = data.split('\n\n')[2:-1]
+		entries = [Entry(a_file) for a_file in a_files]
+	except Exception as e:
+		return (0,[])
 
 	return (total,entries)
 
