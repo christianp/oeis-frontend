@@ -12,93 +12,114 @@
 	</div>
 	<div class="field views">
 		<h4 class="header">Views</h4>
-
-		<ul class="inline-list">
-			<li tabindex="1" class="view graph-button"><a href="#" title="Pin plot and scatter plot of this sequence">Graph</a>
+		<div class="field-content">
+			<ul class="inline-list">
+				<li tabindex="1" class="view graph-button"><a href="#" title="Pin plot and scatter plot of this sequence">Graph</a>
 				<div class="graph">
 					{% set graph_url = url_for('sequence_graph',index=entry.index) %}
 					<a href="{{graph_url}}" target="_blank"><img src="{{graph_url}}"/></a>
 				</div>
-			</li>
-			<li><a class="view" href="{{ url_for('sequence_list',index=entry.index) }}" title="This sequence's terms as a simple table or list">List</a></li>
-			<li><a class="view" href="{{ url_for('sequence_refs',index=entry.index) }}" title="Sequences which refer to this one">Refs</a></li>
-			<li><a class="view" href="{{ url_for('sequence_listen',index=entry.index) }}" title="Listen to the terms of this sequence interpreted as musical notes">Listen</a></li>
-			<li><a class="view" href="{{ url_for('sequence_history',index=entry.index) }}" title="Changes made to this entry">History</a></li>
-			<li><a class="view" href="{{ url_for('sequence_text',index=entry.index) }}" title="This entry in plaintext format">Text</a></li>
-			<li><a class="view" href="{{ url_for('sequence_internal',index=entry.index) }}" title="This entry as it is stored internally">Internal format</a></li>
-		</ul>
+				</li>
+				<li><a class="view" href="{{ url_for('sequence_list',index=entry.index) }}" title="This sequence's terms as a simple table or list">List</a></li>
+				<li><a class="view" href="{{ url_for('sequence_refs',index=entry.index) }}" title="Sequences which refer to this one">Refs</a></li>
+				<li><a class="view" href="{{ url_for('sequence_listen',index=entry.index) }}" title="Listen to the terms of this sequence interpreted as musical notes">Listen</a></li>
+				<li><a class="view" href="{{ url_for('sequence_history',index=entry.index) }}" title="Changes made to this entry">History</a></li>
+				<li><a class="view" href="{{ url_for('sequence_text',index=entry.index) }}" title="This entry in plaintext format">Text</a></li>
+				<li><a class="view" href="{{ url_for('sequence_internal',index=entry.index) }}" title="This entry as it is stored internally">Internal format</a></li>
+			</ul>
+		</div>
 	</div>
 	<div class="field author">
 		<h4 class="header">Author</h4>
-		{{entry.author|addlinks}}
+		<div class="field-content">
+			<span>{{entry.author|addlinks}}</span>
+		</div>
 	</div>
 	<div class="field keywords">
 		<h4 class="header">Keywords</h4>
-		<ul class="inline-list">
-			{% for keyword in entry.keywords %}<li class="keyword"><a href="{{ url_for('show_keyword',keyword=keyword) }}">{{keyword}}</a></li>{% endfor %}
-		</ul>
+		<div class="field-content">
+			<ul class="inline-list">
+				{% for keyword in entry.keywords %}<li class="keyword"><a href="{{ url_for('show_keyword',keyword=keyword) }}">{{keyword}}</a></li>{% endfor %}
+			</ul>
+		</div>
 	</div>
 	{% if entry.comments %}
 	<div class="field comments">
 		<h4 class="header">Comments</h4>
-		{{entry.comments|maths|addlinks|multiline}}
+		<div class="field-content">
+			{{entry.comments|maths|addlinks|multiline}}
+		</div>
 	</div>
 	{% endif %}
 	{% if entry.examples %}
 	<div class="field examples">
 		<h4 class="header">Examples</h4>
-		{{entry.examples|maths|addlinks|multiline}}
+		<div class="field-content">
+			{{entry.examples|maths|addlinks|multiline}}
+		</div>
 	</div>
 	{% endif %}
 	{% if entry.references %}
 	<div class="field references">
 		<h4 class="header">References</h4>
-		<ul class="reference-list">
-			{% for reference in entry.references %}
-			<li class="reference">{{reference|addlinks}}</li>
-			{% endfor %}
-		</ul>
+		<div class="field-content">
+			<ul class="reference-list">
+				{% for reference in entry.references %}
+				<li class="reference">{{reference|addlinks}}</li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
 	{% endif %}
 	{% if entry.links %}
 	<div class="field links">
 		<h4 class="header">Links</h4>
-		<ul class="links-list">
-			{% for link in entry.links %}
-			<li class="link">{{link|safe}}</li>
-			{% endfor %}
-		</ul>
+		<div class="field-content">
+			<ul class="links-list">
+				{% for link in entry.links %}
+				<li class="link">{{link|safe}}</li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
 	{% endif %}
 	{% if entry.cross_references %}
 	<div class="field cross-references">
 		<h4 class="header">Crossrefs</h4>
-		{{entry.cross_references|maths|addlinks|multiline}}
+		<div class="field-content">
+			{{entry.cross_references|maths|addlinks|multiline}}
+		</div>
 	</div>
 	{% endif %}
 	{% if entry.programs %}
 	<div class="field programs">
 		<h4 class="header">Programs</h4>
-		<ul>
-			{% for language,program in entry.programs %}
-			<li class="program">
+		<div class="field-content">
+			<ul class="program-list">
+				{% for language,program in entry.programs %}
+				<li class="program">
 				<h5 class="header">{{language}}</h5>
-				<pre>{{program|addlinks}}</pre>
-			</li>
-			{% endfor %}
-		</ul>
+				<div class="code">{{program|addlinks}}</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
 	{% endif %}
 	{% if entry.formula %}
 	<div class="field formula">
 		<h4 class="header">Formula</h4>
-		{{entry.formula|maths|addlinks|multiline}}
+		<div class="field-content">
+			{{entry.formula|maths|addlinks|multiline}}
+		</div>
 	</div>
 	{% endif %}
 	{% if entry.extensions %}
 	<div class="field extensions">
 		<h4 class="header">Extensions</h4>
-		{{entry.extensions|maths|addlinks|multiline}}
+		<div class="field-content">
+			{{entry.extensions|maths|addlinks|multiline}}
+		</div>
 	</div>
 	{% endif %}
 </div>

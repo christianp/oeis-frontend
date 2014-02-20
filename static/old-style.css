@@ -1,0 +1,242 @@
+body {
+	max-width: 750px;
+	margin: 0 auto;
+	padding: 0 0.5em;
+	font-size: 12px;
+	font-family: serif;
+}
+
+.logo {
+	text-align: center;
+}
+.logo a {
+	color: black;
+}
+.header-text {
+    padding: 0 1em;
+    font-style: italic;
+    max-width: 50em;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+a {
+	text-decoration: none;
+}
+
+.field .sequence-link {
+	border-bottom: 1px dashed;
+}
+
+.terms {
+	word-break: break-word;
+	font-family: monospace;
+	font-size: 13px;
+	display: block;
+}
+.inline-list {
+    list-style: none;
+    display: inline;
+	padding: 0;
+}
+.inline-list li {
+    display: inline;
+    margin-right: 0.5em;
+}
+.inline-list li:not(:last-child):after {
+    content: '⋅';
+    display: inline-block;
+    margin-left: 0.5em;
+    font-weight: bold;
+}
+.multiline .line, .reference-list li, .links-list li {
+    line-height: 1.4em;
+    padding-left: 1em;
+    text-indent: -1em;
+    font-size: 13px;
+}
+
+.title {
+    border-top: 1px solid black;
+    background-color: #eef;
+    font-size: 16px;
+}
+.title .index {
+	display: inline-block;
+	
+    
+	/* padding: 0.1em 0.5em; */
+    vertical-align: top;
+	width: 100px;
+}
+.title .name {
+    padding: 0 0.5em 0 0.3em;
+    font-weight: normal;
+}
+.field > * {
+    display: table-cell;
+}
+.field > .header {
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin: 0;
+    width: 100px;
+}
+.field .header.inline {
+    display: inline;
+    margin-right: 0.5em;
+}
+.field {
+    margin-bottom: 1em;
+    clear: both;
+    padding: 0 4em;
+}
+.offset {
+    font-weight: normal;
+    color: #666;
+    font-size: 1em;
+    margin-top: 0.3em;
+    display: block;
+}
+.program pre {
+	padding-left: 1em;
+	line-height: 2em;
+    margin: 0;
+    word-break: break-all;
+    word-wrap: break-word;
+    max-width: 100%;
+    white-space: pre-wrap;
+}
+
+.entry {
+    margin-bottom: 5em;
+}
+.program-list {
+    list-style: none;
+    padding: 0;
+}
+.program .header:before {
+    content: '(';
+}
+.program .header:after {
+    content: ')';
+}
+
+.search-box {
+	text-align: center;
+	padding: 1em 0;
+}
+.search-box .query {
+	max-width: 90%;
+	width: 30em;
+	padding: 0.3em;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	margin: 0 0.3em;
+	font-family: monospace;
+	font-size: 1.25em;
+}
+.search-box button[type=submit] {
+	height: 1.9em;
+}
+
+.user .name {
+	font-weight: normal;
+}
+
+.example-searches {
+	line-height: 1.5em;
+	list-style: none;
+}
+.example-searches .query {
+	font-family: monospace;
+	font-size: 1.25em;
+}
+.footer {
+    text-align: center;
+    border-top: 1px solid #ddd;
+    margin-top: 5em;
+    font-size: 14px;
+}
+.footer .license {
+    font-style: italic;
+}
+.entry .field.views {
+	position: relative;
+}
+.entry .graph-button {
+	cursor: pointer;
+}
+.entry .graph-button .graph {
+	display: block;
+	position: absolute;
+	top: 2em;
+	left: 1em;
+	right: 2em;
+}
+.entry .graph-button:not(:focus) .graph {
+	display: none;
+}
+.entry .graph img {
+	box-shadow: 0px 0px 5px 5px #ddd;
+	padding: 10px;
+	background: white;
+	max-width: 100%;
+	position: absolute;
+	left: 0;
+	margin-bottom: 2em;
+	z-index: 2;
+}
+.values-table {
+    font-family: monospace;
+    font-size: 1.5em;
+    margin: 0 auto;
+}
+.values-table col.n {
+    text-align: left;
+}
+.values-table td:first-child, .values-table th:first-child {
+    text-align: left;
+    padding-right: 1em;
+}
+.values-table th:last-child, .values-table td:last-child {
+    text-align: right;
+    padding-left: 1em;
+}
+.values-table tr:nth-child(odd) td {
+    background-color: #f4f4f4;
+}
+.entry.list .name {
+    font-weight: normal;
+}
+.entry.list .field.list .list {
+	font-family: monospace;
+	font-size: 1.25em;
+	text-indent: -0.5em;
+}
+.field-contents {
+    font-family: monospace;
+}
+.field-content {
+    font-family: monospace;
+    font-size: 13px;
+}
+.reference-list, .links-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+}
+
+.program .header {
+    font-weight: normal;
+    font-size: 13px;
+    margin: 0;
+}
+.program .code {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+.field.views .field-content {
+    font-family: serif;
+}

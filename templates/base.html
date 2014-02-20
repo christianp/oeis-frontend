@@ -7,7 +7,7 @@
 
 		{% block css %}
 		<link rel="stylesheet" href="{{ url_for('static',filename='normalize.css') }}"></link>
-		<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></link>
+		<link rel="stylesheet" href="{{ url_for('static',filename=request.args.get('style','style.css')) }}"></link>
 		{% endblock css %}
 	</head>
 	<body>
@@ -15,9 +15,9 @@
 			<h1 class="logo"><a href="/">cp's OEIS Frontend</a></h1>
 			<div class="header-text">
 				<p>
-					This is a front-end for the <a href="http://oeis.org">Online Encyclopedia of Integer Sequences</a>, made by <a href="http://checkmyworking.com">Christian Perfect</a>. 
-					The idea is to provide OEIS entries in non-ancient HTML, and then to think about how they're presented visually.
-					The <a href="http://github.com/christianp/oeis-frontend">source code is on GitHub</a>.
+				This is a front-end for the <a href="http://oeis.org">Online Encyclopedia of Integer Sequences</a>, made by <a href="http://checkmyworking.com">Christian Perfect</a>. 
+				The idea is to provide OEIS entries in non-ancient HTML, and then to think about how they're presented visually.
+				The <a href="http://github.com/christianp/oeis-frontend">source code is on GitHub</a>.
 				</p>
 			</div>
 		</div>
@@ -26,7 +26,7 @@
 
 		<div class="footer">
 			<p class="credits">Started in 1964 by <a href="http://neilsloane.com">Neil J. A. Sloane</a> | Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc</a>.</a>
-
 		<p class="license">Content is available under <a href="http://oeis.org/wiki/The_OEIS_End-User_License_Agreement">The OEIS End-User License Agreement</a>.</p>
-	</body>
+	</div>
+</body>
 </html>
