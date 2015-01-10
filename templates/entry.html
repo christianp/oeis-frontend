@@ -14,12 +14,8 @@
 		<h4 class="header">Views</h4>
 		<div class="field-content">
 			<ul class="inline-list">
-				<li tabindex="1" class="view graph-button"><a href="#" title="Pin plot and scatter plot of this sequence">Graph</a>
-				<div class="graph">
-					{% set graph_url = url_for('sequence_graph',index=entry.index) %}
-					<a href="{{graph_url}}" target="_blank"><img src="{{graph_url}}"/></a>
-				</div>
-				</li>
+				{% set graph_url = url_for('sequence_graph',index=entry.index) %}
+				<li tabindex="1" class="view graph-button"><a href="{{graph_url}}" title="Pin plot and scatter plot of this sequence">Graph</a></li>
 				<li><a class="view" href="{{ url_for('sequence_list',index=entry.index) }}" title="This sequence's terms as a simple table or list">List</a></li>
 				<li><a class="view" href="{{ url_for('sequence_refs',index=entry.index) }}" title="Sequences which refer to this one">Refs</a></li>
 				<li><a class="view" href="{{ url_for('sequence_listen',index=entry.index) }}" title="Listen to the terms of this sequence interpreted as musical notes">Listen</a></li>
