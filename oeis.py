@@ -1,7 +1,8 @@
 import re
 import operator
 import itertools
-import urllib
+from urllib.parse import urlunparse,urlencode
+import urllib.request
 
 re_entry_line = re.compile('%(?P<linetype>\w) (?P<index>A\d{6}) (?P<content>.*)$')
 class Entry:
@@ -130,15 +131,14 @@ def search(**kwargs):
 		args['start'] = kwargs['start']
 
 	args['q'] = make_search_query(**kwargs)
-	args_string = '&'.join('%s=%s' %(key,value) for key,value in args.items())
-	url = 'http://oeis.org/search?%s' % args_string
+	url = urlunparse(('http','oeis.org','search','',urlencode(args),''))
 
 	data = urllib.request.urlopen(url).read().decode(encoding='utf-8')
 	sections = data.split('\n\n')
 
 	try:
 		total = int(re.search('Showing \d+-\d+ of (?P<total>\d+)',sections[1]).group('total'))
-		a_files = data.split('\n\n')[2:-1]
+		a_files = sections[2:-1]
 		entries = [Entry(a_file) for a_file in a_files]
 	except Exception as e:
 		return (0,[])
@@ -146,7 +146,10 @@ def search(**kwargs):
 	return (total,entries)
 
 def get_entry(index):
-	request = urllib.request.urlopen('http://oeis.org/search?q=id:%s&fmt=text' % index).read().decode(encoding='utf-8')
+	url = urlunparse(('http','oeis.org','search','',urlencode({'q':'id:'+index,'fmt':'text'}),''))
+	request = urllib.request.urlopen(url).read().decode(encoding='utf-8')
 	a_file = request.split('\n\n')[2]
 	return Entry(a_file)
 
+if __name__ == '__main__':
+	print(search(query='a b c'))
