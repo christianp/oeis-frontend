@@ -133,7 +133,7 @@ def search(**kwargs):
 	args_string = '&'.join('%s=%s' %(key,value) for key,value in args.items())
 	url = 'http://oeis.org/search?%s' % args_string
 
-	data = urllib.urlopen(url).read().decode(encoding='utf-8')
+	data = urllib.request.urlopen(url).read().decode(encoding='utf-8')
 	sections = data.split('\n\n')
 
 	try:

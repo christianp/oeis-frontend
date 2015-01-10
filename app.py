@@ -6,7 +6,7 @@ import re
 from jinja2 import escape
 import werkzeug.routing
 
-basestr = unicode
+basestr = str
 
 app = Flask(__name__)
 
