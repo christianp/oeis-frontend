@@ -15,7 +15,7 @@ def get_url(url):
 	if url in cache:
 		return cache[url]
 	else:
-		data = urllib.urlopen(url).read().decode(encoding='utf-8')
+		data = urllib.request.urlopen(url).read().decode(encoding='utf-8')
 		cache[url] = data
 		print('got %s' % url)
 		return data

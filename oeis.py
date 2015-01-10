@@ -146,7 +146,7 @@ def search(**kwargs):
 	return (total,entries)
 
 def get_entry(index):
-	request = urllib.urlopen('http://oeis.org/search?q=id:%s&fmt=text' % index).read().decode(encoding='utf-8')
+	request = urllib.request.urlopen('http://oeis.org/search?q=id:%s&fmt=text' % index).read().decode(encoding='utf-8')
 	a_file = request.split('\n\n')[2]
 	return Entry(a_file)
 
