@@ -118,10 +118,13 @@ a {
     /* font-style: italic; */
     text-align: right;
 }
-.program pre {
+.program .code {
+    word-wrap: break-word;
+    white-space: pre-wrap;
     padding-bottom: 0.5em;
 	padding-left: 1em;
 	line-height: 2em;
+	font-family: monospace;
 }
 
 .entry {
