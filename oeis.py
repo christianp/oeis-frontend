@@ -93,6 +93,17 @@ class Entry:
 			pairs = [programs[i:i+2] for i in range(0,len(programs),2)]
 			self.programs += pairs
 		self.programs.sort(key=operator.itemgetter(0))
+		
+		def clean_program(program):
+			lines = program.split('\n')
+			olines = []
+			for line in lines:
+				dots = re.match('^\.*',line).group(0)
+				oline = ' '*len(dots)+line[len(dots):]
+				olines.append(oline)
+			return '\n'.join(olines)
+		self.programs = [(lang,clean_program(program)) for lang,program in self.programs]
+
 
 	def __repr__(self):
 		return '%s %s' % (self.index, self.name)
