@@ -3,15 +3,28 @@
 {% block content %}
 	{{ super() }}
 
-	{% if start>0 %}
-		<a href="{{ url_for('search',q=query,start=start-10) }}">Previous</a>
-	{% endif %}
-	Showing {{start+1}}-{{end}} of {{total}} results.
-	{% if start<total-10 %}
-		<a href="{{ url_for('search',q=query,start=start+10) }}">Next</a>
-	{% endif %}
+	{% if end>0 %}
+		{% if start>0 %}
+			<a href="{{ url_for('search',q=query,start=start-10) }}">Previous</a>
+		{% endif %}
+		Showing {{start+1}}-{{end}} of {{total}} results.
+		{% if start<total-10 %}
+			<a href="{{ url_for('search',q=query,start=start+10) }}">Next</a>
+		{% endif %}
 
-	{% for entry in entries %}
-		{% include 'entry.html' %}
-	{% endfor %}
+		{% for entry in entries %}
+			{% include 'entry.html' %}
+		{% endfor %}
+
+		{% if start>0 %}
+			<a href="{{ url_for('search',q=query,start=start-10) }}">Previous</a>
+		{% endif %}
+		Showing {{start+1}}-{{end}} of {{total}} results.
+		{% if start<total-10 %}
+			<a href="{{ url_for('search',q=query,start=start+10) }}">Next</a>
+		{% endif %}
+	{% else %}
+		<p>No results found!</p>
+		<p>If your sequence is of general interest, please <a href="https://oeis.org/edit/new">submit it</a> and it will (probably) be added to the OEIS! Include a brief description and if possible enough terms to fill 3 lines on the screen. We need at least 4 terms.</p>
+	{% endif %}
 {% endblock content %}
