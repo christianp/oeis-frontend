@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}{{name}} - {{super()}}{% endblock title %}
+
 {% block content %}
 	<div class="user">
 		<h2>User: <span class="name">{{name}}</span></h2>

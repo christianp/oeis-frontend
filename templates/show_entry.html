@@ -1,5 +1,7 @@
 {% extends "subpage.html" %}
 
+{% block title %}{{entry.index}} - {{super()}}{% endblock title %}
+
 {% block content %}
 	{{ super() }}
 	{% include 'entry.html' %}

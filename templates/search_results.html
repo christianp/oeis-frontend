@@ -1,5 +1,7 @@
 {% extends "subpage.html" %}
 
+{% block title %}{{query}} - {{super()}}{% endblock title %}
+
 {% block content %}
 	{{ super() }}
 
