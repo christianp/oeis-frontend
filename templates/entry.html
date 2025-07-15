@@ -1,7 +1,7 @@
 <div class="entry">
 	<h3 class="title">
 		<span class="index">{{entry.index|addlinks}}</span>
-		<span class="name">{{entry.name|maths|addlinks}}</span>
+		<span class="name">{{entry.name|addlinks}}</span>
 	</h3>
 	<p><a href="http://oeis.org/{{entry.index}}">Original entry on oeis.org</a></p>
 	<div class="field terms-box">
@@ -43,16 +43,16 @@
 	<div class="field comments">
 		<h4 class="header">Comments</h4>
 		<div class="field-content">
-			{{entry.comments|maths|addlinks|multiline}}
+			{{entry.comments|addlinks|multiline}}
 		</div>
 	</div>
 	{% endif %}
 	{% if entry.examples %}
 	<div class="field examples">
 		<h4 class="header">Examples</h4>
-		<div class="field-content">
-			{{entry.examples|maths|addlinks|multiline}}
-		</div>
+		<pre class="field-content">
+			{{entry.examples}}
+		</pre>
 	</div>
 	{% endif %}
 	{% if entry.references %}
@@ -83,7 +83,7 @@
 	<div class="field cross-references">
 		<h4 class="header">Crossrefs</h4>
 		<div class="field-content">
-			{{entry.cross_references|maths|addlinks|multiline}}
+			{{entry.cross_references|addlinks|multiline}}
 		</div>
 	</div>
 	{% endif %}
@@ -95,7 +95,7 @@
 				{% for language,program in entry.programs %}
 				<li class="program">
 				<h5 class="header">{{language}}</h5>
-				<div class="code">{{program|addlinks}}</div>
+				<pre class="code">{{program|addlinks}}</pre>
 				</li>
 				{% endfor %}
 			</ul>
@@ -106,7 +106,7 @@
 	<div class="field formula">
 		<h4 class="header">Formula</h4>
 		<div class="field-content">
-			{{entry.formula|maths|addlinks|multiline}}
+			{{entry.formula|addlinks|multiline}}
 		</div>
 	</div>
 	{% endif %}
@@ -114,7 +114,7 @@
 	<div class="field extensions">
 		<h4 class="header">Extensions</h4>
 		<div class="field-content">
-			{{entry.extensions|maths|addlinks|multiline}}
+			{{entry.extensions|addlinks|multiline}}
 		</div>
 	</div>
 	{% endif %}
