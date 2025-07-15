@@ -1,16 +1,13 @@
-from flask import Flask, redirect, render_template, url_for, Markup, request
+from flask import Flask, redirect, render_template, url_for, request
+from markupsafe import Markup
 from functools import wraps
 import oeis
 import urllib
 from urllib.parse import urlunparse,urlencode
 import re
-from jinja2 import escape
 import werkzeug.routing
 
-basestr = str
-
 app = Flask(__name__)
-app.config.from_pyfile('flaskapp.cfg')
 
 cache = {}
 def get_url(url):
@@ -37,12 +34,11 @@ app.url_map.converters['sequence'] = SequenceConverter
 
 @app.template_filter('multiline')
 def multiline_filter(s):
-	lines = basestr(s).split('\n')
+	lines = str(s).split('\n')
 	return Markup('<div class="multiline">'+'\n'.join('<div class="line">%s</div>' % line for line in lines)+'</div>')
 
 @app.template_filter('maths')
 def maths_filter(s):
-	s = basestr(escape(s))
 	bits = re_not_maths.split(s)
 	for i in range(2,len(bits),2):
 		if bits[i]:
